@@ -1,0 +1,18 @@
+<?sap.transform simple?>
+<tt:transform xmlns:tt="http://www.sap.com/transformation-templates" xmlns:ddic="http://www.sap.com/abapxml/types/dictionary" xmlns:def="http://www.sap.com/abapxml/types/defined">
+  <tt:root name="ROOT" type="?"/>
+  <tt:root name="Mitarbeiter" type="ddic:ZPECI_MITARBEITER"/>
+  <tt:template>
+    <Mitarbeiter>
+      <Zusammenfassung>
+        <Updated_From tt:value-ref=".MITARBEITER.ZUSAMMENFASSUNG.UPDATED_FROM"/>
+      </Zusammenfassung>
+      <tt:loop ref=".MITARBEITER.ARBEITER">
+        <Arbeiter>
+          <Employee_ID tt:value-ref="EMPLOYEE_ID"/>
+          <Name tt:value-ref="NAME"/>
+        </Arbeiter>
+      </tt:loop>
+    </Mitarbeiter>
+  </tt:template>
+</tt:transform>

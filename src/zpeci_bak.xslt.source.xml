@@ -1,0 +1,18 @@
+<?sap.transform simple?>
+<tt:transform xmlns:tt="http://www.sap.com/transformation-templates" xmlns:ddic="http://www.sap.com/abapxml/types/dictionary" xmlns:def="http://www.sap.com/abapxml/types/defined" >
+  <tt:root name="ROOT" type="?"/>
+  <tt:root name="WORKERS_EFFECTIVE_STACK" type="ddic:ZPECI_WORKERS_EFFECTIVE_STACK"/>
+  <tt:template>
+    <peci:Workers_Effective_Stack xmlns:peci="urn:com.workday/peci">
+      <peci:Summary>
+      </peci:Summary>
+      <peci:Worker>
+        <tt:loop ref=".WORKERS_EFFECTIVE_STACK.WORKER_TAB">
+          <ZPECI_WORKER>
+            <MEINWORKER tt:value-ref="MEINWORKER"/>
+          </ZPECI_WORKER>
+        </tt:loop>
+      </peci:Worker>
+    </peci:Workers_Effective_Stack>
+  </tt:template>
+</tt:transform>
