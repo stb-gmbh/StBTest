@@ -42,6 +42,18 @@ Report ZHR_STOERFALL_IT0015 bleibt unveraendert.
   Beispiel: Start am 19.10.2026 -> 30.09.2026. Der Wert bleibt aenderbar.
 - Die Waehrung ist fest EUR; kein Waehrungsparameter im Selektionsbild.
 - **Datenbankupdate ist standardmaessig AUS.** Erst Testprotokoll pruefen.
+- Optional P_LAYOUT (ALV-Layoutvariante): Gespeichertes ALV-Layout eingeben
+  oder mit F4 auswaehlen. Die Auswahl verwendet denselben Report-Schluessel
+  wie die Ergebnisliste; Abbrechen erhaelt den bisherigen Parameterwert.
+  Das ausgewaehlte Layout wird beim Start der ALV angewendet. Ohne Eingabe
+  greift ein gespeichertes Standardlayout, sofern vorhanden, andernfalls
+  die im Report definierte Spaltenansicht.
+  In der ALV sind Layout auswaehlen, aendern und speichern aktiviert,
+  einschliesslich benutzerspezifischer und globaler Layouts (gemaess
+  SAP-Berechtigungen). Ein Layout kann als Standard markiert werden.
+  P_LAYOUT kann zusammen mit den anderen Parametern in einer
+  Selektionsvariante gespeichert werden. ALV-Layouts betreffen die Anzeige;
+  die Verarbeitung und Buchung richtet sich weiterhin nach den Selektionsfiltern.
 
 Bei direkter Anlage in SE38 die Selektionsbeschriftungen aus der PROG.XML
 uebernehmen. Bei abapGit werden sie zusammen mit dem Report eingespielt.

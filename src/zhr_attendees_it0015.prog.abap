@@ -5,7 +5,7 @@ REPORT zhr_attendees_it0015.
 * Existing IT0015 wage type on the posting date blocks a new record.
 * Update OFF: read-only precheck, no HR_INFOTYPE_OPERATION call.
 * Amounts: Excel decimal point. Binary noise <= 0.00000001 is normalized.
-* Actual fractional cents are rejected; other source fields remain strings.
+* Actual fractional cents are rejected; Transaction Date is converted to D.
 
 TYPES: BEGIN OF ty_data,
          filename        TYPE string,
@@ -71,6 +71,7 @@ PARAMETERS p_hide AS CHECKBOX DEFAULT 'X'.
 PARAMETERS p_lgart TYPE p0015-lgart DEFAULT '5570' OBLIGATORY MODIF ID lga.
 PARAMETERS p_date TYPE sy-datum OBLIGATORY.
 PARAMETERS p_update AS CHECKBOX DEFAULT space.
+PARAMETERS p_layout TYPE disvariant-variant.
 SELECTION-SCREEN END OF BLOCK b2.
 
 INITIALIZATION.
@@ -91,6 +92,9 @@ AT SELECTION-SCREEN OUTPUT.
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR s_file-low.
   PERFORM choose_files.
+
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_layout.
+  PERFORM choose_layout.
 
 AT SELECTION-SCREEN.
   IF sy-batch = abap_true.
@@ -159,6 +163,24 @@ START-OF-SELECTION.
   ENDIF.
   PERFORM process_data.
   PERFORM display_result.
+
+FORM choose_layout.
+  DATA ls_key TYPE salv_s_layout_key.
+  DATA ls_layout TYPE salv_s_layout_info.
+* Use the same report key and save restriction as the displayed ALV.
+  ls_key-report = sy-repid.
+  TRY.
+      ls_layout = cl_salv_layout_service=>f4_layouts(
+        s_key = ls_key restrict = if_salv_c_layout=>restrict_none ).
+* Cancel preserves a layout already entered on the selection screen.
+      IF ls_layout-layout IS NOT INITIAL.
+        p_layout = ls_layout-layout.
+      ENDIF.
+    CATCH cx_root INTO DATA(lx_layout).
+      DATA(lv_error) = lx_layout->get_text( ).
+      MESSAGE lv_error TYPE 'S' DISPLAY LIKE 'E'.
+  ENDTRY.
+ENDFORM.
 
 FORM choose_files.
   DATA lt_files TYPE filetable.
@@ -777,6 +799,8 @@ FORM display_result.
          END OF ty_total.
   DATA lt_totals TYPE HASHED TABLE OF ty_total WITH UNIQUE KEY pernr.
   DATA lo_alv TYPE REF TO cl_salv_table.
+  DATA lo_layout TYPE REF TO cl_salv_layout.
+  DATA ls_layout_key TYPE salv_s_layout_key.
   DATA lo_status_column TYPE REF TO cl_salv_column_table.
   DATA lo_table_column TYPE REF TO cl_salv_column_table.
   DATA lv_column TYPE salv_de_column.
@@ -897,6 +921,16 @@ FORM display_result.
         sequence = if_salv_c_sort=>sort_up
         subtotal = abap_true ).
       lo_alv->get_functions( )->set_all( abap_true ).
+* Persist layouts per report; allow user-specific and global layouts.
+* Apply the selected layout after configuring the program's default view.
+      lo_layout = lo_alv->get_layout( ).
+      ls_layout_key-report = sy-repid.
+      lo_layout->set_key( ls_layout_key ).
+      lo_layout->set_save_restriction( if_salv_c_layout=>restrict_none ).
+      lo_layout->set_default( abap_true ).
+      IF p_layout IS NOT INITIAL.
+        lo_layout->set_initial_layout( p_layout ).
+      ENDIF.
       lo_alv->get_display_settings( )->set_list_header(
         CONV lvc_title( |IT0015 { p_date DATE = USER }, LA { p_lgart }, EUR, Update={ p_update }, entfernt={ gv_removed }| ) ).
       lo_alv->display( ).

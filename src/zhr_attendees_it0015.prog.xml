@@ -63,6 +63,12 @@
      <ENTRY>        Expense Sub-Type</ENTRY>
      <LENGTH>24</LENGTH>
     </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_LAYOUT</KEY>
+     <ENTRY>        ALV-Layoutvariante</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
    </TPOOL>
   </asx:values>
  </asx:abap>
