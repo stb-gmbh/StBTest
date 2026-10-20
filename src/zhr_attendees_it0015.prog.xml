@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<abapGit xmlns:asx="http://www.sap.com/abapxml" version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZHR_ATTENDEES_IT0015</NAME>
+    <SUBC>1</SUBC>
+    <RLOAD>E</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Attendees aus Excel nach IT0015 importieren</ENTRY>
+     <LENGTH>43</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_FILE</KEY>
+     <ENTRY>        Excel-Dateien (F4 mehrfach)</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_WDID</KEY>
+     <ENTRY>        SAP-Personalnummer</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_LGART</KEY>
+     <ENTRY>        Lohnart IT0015</ENTRY>
+     <LENGTH>22</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_DATE</KEY>
+     <ENTRY>        Stichtag / Buchungsdatum</ENTRY>
+     <LENGTH>32</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_UPDATE</KEY>
+     <ENTRY>        Datenbankupdate</ENTRY>
+     <LENGTH>23</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_EXPT</KEY>
+     <ENTRY>        Expense Type</ENTRY>
+     <LENGTH>20</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_HIDE</KEY>
+     <ENTRY>        Ohne SAP-PersNr ausblenden</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_EXPS</KEY>
+     <ENTRY>        Expense Sub-Type</ENTRY>
+     <LENGTH>24</LENGTH>
+    </item>
+   </TPOOL>
+  </asx:values>
+ </asx:abap>
+</abapGit>
