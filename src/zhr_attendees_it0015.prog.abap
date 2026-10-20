@@ -932,7 +932,7 @@ FORM display_result.
         lo_layout->set_initial_layout( p_layout ).
       ENDIF.
       lo_alv->get_display_settings( )->set_list_header(
-        CONV lvc_title( |IT0015 { p_date DATE = USER }, LA { p_lgart }, EUR, Update={ p_update }, entfernt={ gv_removed }| ) ).
+        CONV lvc_title( |Einlesen Concur { p_date DATE = USER }| ) ).
       lo_alv->display( ).
     CATCH cx_root INTO DATA(lx_alv).
       DATA(lv_error) = lx_alv->get_text( ).
